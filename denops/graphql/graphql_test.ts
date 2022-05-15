@@ -1,5 +1,5 @@
-import { assertEquals, Denops, test } from "../deps.ts";
-import { execute, setEndpoint } from "./graphql.ts";
+import { assertEquals, Denops, test } from "./deps.ts";
+import { edit, execute, setEndpoint } from "./graphql.ts";
 
 const testEndpoint =
   "https://swapi-graphql.netlify.app/.netlify/functions/index";
@@ -32,7 +32,7 @@ query Query {
         );
 
     const want = await Deno.readTextFile(
-      "denops/graphql/vim/testdata/output.json",
+      "denops/graphql/testdata/output.json",
     );
 
     assertEquals(JSON.parse(got), JSON.parse(want));
@@ -54,11 +54,9 @@ query Query($limit: Int!) {
     }
   }
 }    `;
-    const oldwin = await denops.call("win_getid");
     await denops.call("setline", 1, q);
-    await denops.cmd(`new ${bufname}.variables`);
-    await denops.call("setline", 1, `{"limit": 1}`);
-    await denops.call("win_gotoid", oldwin);
+    await edit(denops);
+    await denops.call("setbufline", `${bufname}.variables`, 1, `{"limit": 1}`);
 
     await setEndpoint(
       denops,
@@ -72,7 +70,7 @@ query Query($limit: Int!) {
         );
 
     const want = await Deno.readTextFile(
-      "denops/graphql/vim/testdata/output.json",
+      "denops/graphql/testdata/output.json",
     );
 
     assertEquals(JSON.parse(got), JSON.parse(want));

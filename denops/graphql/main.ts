@@ -1,5 +1,5 @@
 import { autocmd, Denops } from "./deps.ts";
-import { edit, editHttpHeader, execute, setEndpoint } from "./vim/graphql.ts";
+import { edit, editHttpHeader, execute, setEndpoint } from "./graphql.ts";
 
 export async function main(denops: Denops): Promise<void> {
   for (

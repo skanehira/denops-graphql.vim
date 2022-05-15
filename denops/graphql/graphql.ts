@@ -1,6 +1,6 @@
-import { Denops, fs } from "../deps.ts";
-import { ensureBuffer } from "./ensures.ts";
-import { configFile, hasConfig, readConfig } from "../config.ts";
+import { Denops, fs } from "./deps.ts";
+import { ensureBuffer } from "./vim/ensures.ts";
+import { configFile, hasConfig, readConfig } from "./config.ts";
 
 const endpoints: Record<string, string> = {};
 
