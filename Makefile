@@ -17,4 +17,4 @@ test:
 
 .PHONY: deps
 deps:
-	@deno run -A https://deno.land/x/udd@0.7.3/main.ts denops/template/deps.ts
+	@deno run -A https://deno.land/x/udd@0.7.3/main.ts denops/graphql/deps.ts

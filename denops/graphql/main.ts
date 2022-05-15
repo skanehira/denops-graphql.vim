@@ -1,16 +1,28 @@
-import { Denops, isString } from "./deps.ts";
+import { Denops } from "./deps.ts";
+import { edit, execute, setEndpoint } from "./vim/graphql.ts";
 
 export async function main(denops: Denops): Promise<void> {
-  await denops.cmd(
-    `command! -nargs=1 Hello call denops#notify("${denops.name}", "hello", [<f-args>])`,
-  );
+  for (
+    const cmd of [
+      `command! GraphqlEdit call denops#notify("${denops.name}", "edit", [])`,
+      `command! GraphqlExecute call denops#notify("${denops.name}", "execute", [])`,
+      `command! -nargs=1 GraphqlSetEndpoint call denops#notify("${denops.name}", "setEndpoint", [<f-args>])`,
+    ]
+  ) {
+    await denops.cmd(cmd);
+  }
 
   denops.dispatcher = {
-    async hello(arg: unknown): Promise<void> {
-      if (isString(arg)) {
-        console.log("hello", arg);
-      }
-      await Promise.resolve();
+    async edit() {
+      await edit(denops);
+    },
+
+    async execute() {
+      await execute(denops);
+    },
+
+    async setEndpoint(arg: unknown) {
+      await setEndpoint(denops, arg);
     },
   };
 }
