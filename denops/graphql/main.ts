@@ -24,19 +24,35 @@ export async function main(denops: Denops): Promise<void> {
 
   denops.dispatcher = {
     async edit() {
-      await edit(denops);
+      try {
+        await edit(denops);
+      } catch (e) {
+        console.error(e);
+      }
     },
 
     async execute() {
-      await execute(denops);
+      try {
+        await execute(denops);
+      } catch (e) {
+        console.error(e);
+      }
     },
 
     async setEndpoint(arg: unknown) {
-      await setEndpoint(denops, arg);
+      try {
+        await setEndpoint(denops, arg);
+      } catch (e) {
+        console.error(e);
+      }
     },
 
     async editHttpHeader() {
-      await editHttpHeader(denops);
+      try {
+        await editHttpHeader(denops);
+      } catch (e) {
+        console.error(e);
+      }
     },
   };
 }
