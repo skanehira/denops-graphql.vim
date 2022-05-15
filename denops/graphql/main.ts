@@ -4,10 +4,10 @@ import { edit, editHttpHeader, execute, setEndpoint } from "./graphql.ts";
 export async function main(denops: Denops): Promise<void> {
   for (
     const cmd of [
-      `command! GraphqlEdit call denops#notify("${denops.name}", "edit", [])`,
-      `command! GraphqlExecute call denops#notify("${denops.name}", "execute", [])`,
-      `command! -nargs=1 GraphqlSetEndpoint call denops#notify("${denops.name}", "setEndpoint", [<f-args>])`,
-      `command! GraphqlEditHttpHeader call denops#notify("${denops.name}", "editHttpHeader", [])`,
+      `command! GraphQLEdit call denops#notify("${denops.name}", "edit", [])`,
+      `command! GraphQLExecute call denops#notify("${denops.name}", "execute", [])`,
+      `command! -nargs=1 GraphQLSetEndpoint call denops#notify("${denops.name}", "setEndpoint", [<f-args>])`,
+      `command! GraphQLEditHttpHeader call denops#notify("${denops.name}", "editHttpHeader", [])`,
     ]
   ) {
     await denops.cmd(cmd);
@@ -18,7 +18,7 @@ export async function main(denops: Denops): Promise<void> {
     helper.define(
       "BufEnter",
       "*.graphql",
-      "nnoremap <buffer> <silent> <Plug>(graphql-execute) :GraphqlExecute<CR>",
+      "nnoremap <buffer> <silent> <Plug>(graphql-execute) :GraphQLExecute<CR>",
     );
   });
 

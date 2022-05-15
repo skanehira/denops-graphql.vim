@@ -48,7 +48,7 @@ export async function execute(denops: Denops): Promise<void> {
   const endpoint = endpoints[queryBufName];
   if (!endpoint) {
     throw new Error(
-      "not found endpoint, please set endpoint by :GraphqlSetEndpoint",
+      "not found endpoint, please set endpoint by :GraphQLSetEndpoint",
     );
   }
 

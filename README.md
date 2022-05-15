@@ -1,20 +1,20 @@
 # denops-graphql.vim
-Graphql client for Vim/Neovim.
+GraphQL client for Vim/Neovim.
 
 ![](https://i.gyazo.com/154b64ffef319511d951cc624e0cb7db.png)
 
 ## Usage
 
-- `:GraphqlExecute`
+- `:GraphQLExecute`
   Execute current buffer as graphql query.
 
-- `:GraphqlEdit`
+- `:GraphQLEdit`
   Open variables and response buffer.
 
-- `:GraphqlEditHttpHeader`
+- `:GraphQLEditHttpHeader`
   Edit http headers.
 
-- `:GraphqlSetEndpoint`
+- `:GraphQLSetEndpoint`
   Set graphql endpoint.
 
 If you want see more info, please refer help.

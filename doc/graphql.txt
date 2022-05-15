@@ -57,15 +57,15 @@ VARIABLES					*graphql-variables*
 ------------------------------------------------------------------------------
 COMMANDS					*graphql-commands*
 
-:GraphqlExecute					*:GraphqlExecute*
+:GraphQLExecute					*:GraphQLExecute*
   Execute current buffer as graphql query.
 
-:GraphqlEdit					*:GraphqlEdit*
+:GraphQLEdit					*:GraphQLEdit*
   Open variables and response buffer.
   If you want to edit variables for query,
   pelase execute this command.
 
-:GraphqlEditHttpHeader				*:GraphqlEditHttpHeader*
+:GraphQLEditHttpHeader				*:GraphQLEditHttpHeader*
   Edit http headers.
   The valid config structure is bellow.
 >
@@ -86,7 +86,7 @@ COMMANDS					*graphql-commands*
   ]
 >
 
-:GraphqlSetEndpoint {endpoint}			*:GraphqlSetEndpoint*
+:GraphQLSetEndpoint {endpoint}			*:GraphQLSetEndpoint*
   Set graphql endpoint.
   You have to set endpoint before execute query.
 
