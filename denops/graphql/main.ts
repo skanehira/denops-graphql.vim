@@ -1,4 +1,4 @@
-import { Denops } from "./deps.ts";
+import { autocmd, Denops } from "./deps.ts";
 import { edit, execute, setEndpoint } from "./vim/graphql.ts";
 
 export async function main(denops: Denops): Promise<void> {
@@ -11,6 +11,15 @@ export async function main(denops: Denops): Promise<void> {
   ) {
     await denops.cmd(cmd);
   }
+
+  autocmd.group(denops, "denops_graphql", (helper) => {
+    helper.remove("*");
+    helper.define(
+      "BufEnter",
+      "*.graphql",
+      "nnoremap <buffer> <silent> <Plug>(graphql-execute) :GraphqlExecute<CR>",
+    );
+  });
 
   denops.dispatcher = {
     async edit() {
