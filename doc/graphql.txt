@@ -67,9 +67,34 @@ COMMANDS					*graphql-commands*
   If you want to edit variables for query,
   pelase execute this command.
 
+:GraphqlEditHttpHeader				*:GraphqlEditHttpHeader*
+  Edit http headers.
+  The valid config structure is bellow.
+>
+  [
+    {
+      "endpoint": "https://api.github.com/graphql",
+      "headers": {
+        "Authorization": "bearer token"
+      }
+    },
+    {
+      "endpoint": "http://localhost:8080",
+      "headers": {
+        "key1": "value1",
+        "key2": "value2"
+      }
+    }
+  ]
+>
+
 :GraphqlSetEndpoint {endpoint}			*:GraphqlSetEndpoint*
   Set graphql endpoint.
   You have to set endpoint before execute query.
+
+  The endpoint will be relate the current buffer name.
+  So if you change the file name or open the other file,
+  you have to set endpoint again.
 
 ------------------------------------------------------------------------------
 BUFFER							*graphql-buffers*

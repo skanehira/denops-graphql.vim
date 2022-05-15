@@ -1,5 +1,6 @@
-import { Denops } from "../deps.ts";
+import { Denops, fs } from "../deps.ts";
 import { ensureBuffer } from "./ensures.ts";
+import { configFile, readConfig } from "../config.ts";
 
 const endpoints: Record<string, string> = {};
 
@@ -74,11 +75,20 @@ export async function execute(denops: Denops): Promise<void> {
       .join("\n");
   }
 
+  let headers = {
+    "Content-Type": "application/json",
+  };
+
+  const httpConfigs = await readConfig();
+  for (const config of httpConfigs) {
+    if (endpoint === config.endpoint) {
+      headers = { ...headers, ...config.headers };
+    }
+  }
+
   const resp = await fetch(endpoint, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: headers,
     body: JSON.stringify({
       query: query,
       variables: variables ? JSON.parse(variables) : null,
@@ -96,4 +106,11 @@ export async function execute(denops: Denops): Promise<void> {
 export async function setEndpoint(denops: Denops, arg: unknown): Promise<void> {
   const bufname = await denops.call("bufname") as string;
   endpoints[bufname] = arg as string;
+}
+
+export async function editHttpHeader(
+  denops: Denops,
+): Promise<void> {
+  fs.ensureFile(configFile);
+  await denops.cmd(`new ${configFile}`);
 }
