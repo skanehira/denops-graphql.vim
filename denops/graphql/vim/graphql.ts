@@ -1,6 +1,6 @@
 import { Denops, fs } from "../deps.ts";
 import { ensureBuffer } from "./ensures.ts";
-import { configFile, readConfig } from "../config.ts";
+import { configFile, hasConfig, readConfig } from "../config.ts";
 
 const endpoints: Record<string, string> = {};
 
@@ -79,10 +79,12 @@ export async function execute(denops: Denops): Promise<void> {
     "Content-Type": "application/json",
   };
 
-  const httpConfigs = await readConfig();
-  for (const config of httpConfigs) {
-    if (endpoint === config.endpoint) {
-      headers = { ...headers, ...config.headers };
+  if (await hasConfig()) {
+    const httpConfigs = await readConfig();
+    for (const config of httpConfigs) {
+      if (endpoint === config.endpoint) {
+        headers = { ...headers, ...config.headers };
+      }
     }
   }
 

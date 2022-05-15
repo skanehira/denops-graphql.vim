@@ -17,6 +17,18 @@ export type HttpConfigs = [
   },
 ];
 
+export async function hasConfig(): Promise<boolean> {
+  try {
+    await Deno.lstat(configFile);
+    return true;
+  } catch (e) {
+    if (e instanceof Deno.errors.NotFound) {
+      return false;
+    }
+    throw e;
+  }
+}
+
 export async function readConfig(): Promise<HttpConfigs> {
   const body = await Deno.readTextFile(configFile);
   return JSON.parse(body) as HttpConfigs;
