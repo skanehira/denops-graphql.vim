@@ -42,7 +42,7 @@ export async function edit(denops: Denops): Promise<void> {
 
 export async function execute(denops: Denops): Promise<void> {
   if (await denops.eval("&ft") !== "graphql") {
-    return;
+    throw new Error(`file type is not 'graphql'`);
   }
   const queryBufName = await denops.call("bufname") as string;
   const endpoint = endpoints[queryBufName];
@@ -93,6 +93,10 @@ export async function execute(denops: Denops): Promise<void> {
       variables: variables ? JSON.parse(variables) : null,
     }),
   });
+
+  if (!resp.ok) {
+    throw new Error(`network response is not ok: ${await resp.text()}`);
+  }
 
   const body = JSON.stringify(await resp.json(), null, "  ");
   await denops.batch(
