@@ -9,7 +9,7 @@ test({
   name: "execute without variables",
   fn: async (denops: Denops) => {
     const bufname = "test.graphql";
-    await denops.cmd(`new ${bufname}`);
+    await denops.cmd(`new ${bufname} | set ft=graphql`);
     const q = `
 query Query {
   allFilms(first: 1) {
@@ -45,7 +45,7 @@ test({
   name: "execute with variables",
   fn: async (denops: Denops) => {
     const bufname = "test.graphql";
-    await denops.cmd(`new ${bufname}`);
+    await denops.cmd(`new ${bufname} | set ft=graphql`);
     const q = `
 query Query($limit: Int!) {
   allFilms(first: $limit) {

@@ -28,14 +28,12 @@ const openRespBuffer = async (denops: Denops, bufname: string) => {
 export async function edit(denops: Denops): Promise<void> {
   const ft = await denops.eval("&ft");
   if (ft !== "graphql") {
-    console.error(`file type is not 'graphql': ${ft}`);
-    return;
+    throw new Error(`file type is not 'graphql': ${ft}`);
   }
 
   const fname = await denops.call("bufname");
   if (!fname) {
-    console.error("file name is empty");
-    return;
+    throw new Error("file name is empty");
   }
 
   await openVariableBuffer(denops, `${fname}.variables`);
@@ -44,15 +42,14 @@ export async function edit(denops: Denops): Promise<void> {
 
 export async function execute(denops: Denops): Promise<void> {
   if (await denops.eval("&ft") !== "graphql") {
-    return;
+    throw new Error(`file type is not 'graphql'`);
   }
   const queryBufName = await denops.call("bufname") as string;
   const endpoint = endpoints[queryBufName];
   if (!endpoint) {
-    console.error(
+    throw new Error(
       "not found endpoint, please set endpoint by :GraphqlSetEndpoint",
     );
-    return;
   }
 
   const respBufName = `${queryBufName}.output`;
@@ -96,6 +93,10 @@ export async function execute(denops: Denops): Promise<void> {
       variables: variables ? JSON.parse(variables) : null,
     }),
   });
+
+  if (!resp.ok) {
+    throw new Error(`network response is not ok: ${await resp.text()}`);
+  }
 
   const body = JSON.stringify(await resp.json(), null, "  ");
   await denops.batch(
