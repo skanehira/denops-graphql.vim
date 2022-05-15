@@ -1,11 +1,26 @@
-# denops-template.vim
-A plugin template for [denops](https://github.com/vim-denops)
+# denops-graphql.vim
+Graphql client for Vim/Neovim.
+
+![](https://i.gyazo.com/154b64ffef319511d951cc624e0cb7db.png)
 
 ## Usage
-1. Fork this repository.
-   Repository name must be `denops-xxx.vim`
-2. Run `make init`
-   Its rename directory `./denops/template` to `./denops/xxx`, `xxx` is your repository name that part of `denops-xxx`.
+
+- `:GraphqlExecute`
+  Execute current buffer as graphql query.
+
+- `:GraphqlEdit`
+  Open variables and response buffer.
+
+- `:GraphqlEditHttpHeader`
+  Edit http headers.
+
+- `:GraphqlSetEndpoint`
+  Set graphql endpoint.
+
+If you want see more info, please refer help.
 
 ## Author
 skanehira
+
+## LICENSE
+MIT
