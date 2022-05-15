@@ -1,4 +1,4 @@
-*graphql.txt*	Graphql client for Vim/Neovim
+*graphql.txt*	GraphQL client for Vim/Neovim
 
 Author: skanehira <sho19921005@gmail.com>
 License : MIT license  {{{
@@ -39,9 +39,7 @@ CHANGELOG			|graphql-changelog|
 ==============================================================================
 INTRODUCTION					*graphql-introduction*
 
-*denops-graphql.vim* is a Vim/Neovim plugin for graphql
-that can start or stop containers, and show images, create container from
-specified image.
+*denops-graphql.vim* is a Vim/Neovim plugin for GraphQL
 
 Latest version:
 https://github.com/skanehira/denops-graphql.vim
