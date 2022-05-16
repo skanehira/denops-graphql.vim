@@ -103,7 +103,7 @@ export async function execute(denops: Denops): Promise<void> {
     ["deletebufline", respBufName, 1, "$"],
     ["setbufline", respBufName, 1, body.split("\n")],
   );
-  await denops.cmd("echo ''");
+  await denops.cmd("redraw! | echo ''");
 }
 
 export async function setEndpoint(denops: Denops, arg: unknown): Promise<void> {
