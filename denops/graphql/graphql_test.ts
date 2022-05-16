@@ -5,7 +5,7 @@ const testEndpoint =
   "https://swapi-graphql.netlify.app/.netlify/functions/index";
 
 test({
-  mode: "nvim",
+  mode: "all",
   name: "execute without variables",
   fn: async (denops: Denops) => {
     const bufname = "test.graphql";
@@ -41,7 +41,7 @@ query Query {
 });
 
 test({
-  mode: "nvim",
+  mode: "all",
   name: "execute with variables",
   fn: async (denops: Denops) => {
     const bufname = "test.graphql";
