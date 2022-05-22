@@ -85,6 +85,7 @@ export async function execute(denops: Denops): Promise<void> {
     }
   }
 
+  console.log("executing...");
   const resp = await fetch(endpoint, {
     method: "POST",
     headers: headers,
