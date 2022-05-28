@@ -25,11 +25,15 @@ query Query {
       testEndpoint,
     );
     await execute(denops);
-    const got =
-      (await denops.call("getbufline", `${bufname}.output`, 1, "$") as string[])
-        .join(
-          "\n",
-        );
+    const got = (await denops.call(
+      "getbufline",
+      `${bufname}.output.json`,
+      1,
+      "$",
+    ) as string[])
+      .join(
+        "\n",
+      );
 
     const want = await Deno.readTextFile(
       "denops/graphql/testdata/output.json",
@@ -56,18 +60,27 @@ query Query($limit: Int!) {
 }    `;
     await denops.call("setline", 1, q);
     await edit(denops);
-    await denops.call("setbufline", `${bufname}.variables`, 1, `{"limit": 1}`);
+    await denops.call(
+      "setbufline",
+      `${bufname}.variables.json`,
+      1,
+      `{"limit": 1}`,
+    );
 
     await setEndpoint(
       denops,
       testEndpoint,
     );
     await execute(denops);
-    const got =
-      (await denops.call("getbufline", `${bufname}.output`, 1, "$") as string[])
-        .join(
-          "\n",
-        );
+    const got = (await denops.call(
+      "getbufline",
+      `${bufname}.output.json`,
+      1,
+      "$",
+    ) as string[])
+      .join(
+        "\n",
+      );
 
     const want = await Deno.readTextFile(
       "denops/graphql/testdata/output.json",
