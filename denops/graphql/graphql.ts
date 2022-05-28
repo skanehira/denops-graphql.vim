@@ -108,6 +108,11 @@ export async function execute(denops: Denops): Promise<void> {
 }
 
 export async function setEndpoint(denops: Denops, arg: unknown): Promise<void> {
+  const ft = await denops.eval("&ft");
+  if (ft !== "graphql") {
+    console.error(`file type is not graphql: ${ft}`);
+    return;
+  }
   const bufname = await denops.call("bufname") as string;
   endpoints[bufname] = arg as string;
 }
