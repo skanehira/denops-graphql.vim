@@ -11,7 +11,7 @@ const openVariableBuffer = async (denops: Denops, bufname: string) => {
     bufname,
     async () => {
       await denops.cmd(
-        "setlocal ft=json buftype=nofile | nnoremap <buffer> q :q<CR>",
+        "setlocal buftype=nofile | nnoremap <buffer> q :q<CR>",
       );
     },
   );
@@ -20,7 +20,7 @@ const openVariableBuffer = async (denops: Denops, bufname: string) => {
 const openRespBuffer = async (denops: Denops, bufname: string) => {
   await ensureBuffer(denops, "botright vnew", bufname, async () => {
     await denops.cmd(
-      "setlocal ft=json buftype=nofile | nnoremap <buffer> q :bw!<CR>",
+      "setlocal buftype=nofile | nnoremap <buffer> q :bw!<CR>",
     );
   });
 };
@@ -36,8 +36,8 @@ export async function edit(denops: Denops): Promise<void> {
     throw new Error("file name is empty");
   }
 
-  await openVariableBuffer(denops, `${fname}.variables`);
-  await openRespBuffer(denops, `${fname}.output`);
+  await openVariableBuffer(denops, `${fname}.variables.json`);
+  await openRespBuffer(denops, `${fname}.output.json`);
 }
 
 export async function execute(denops: Denops): Promise<void> {
@@ -52,14 +52,14 @@ export async function execute(denops: Denops): Promise<void> {
     );
   }
 
-  const respBufName = `${queryBufName}.output`;
+  const respBufName = `${queryBufName}.output.json`;
   await openRespBuffer(denops, respBufName);
 
   const query =
     (await denops.call("getbufline", queryBufName, 1, "$") as string[])
       .join("\n");
 
-  const variableBufName = `${queryBufName}.variables`;
+  const variableBufName = `${queryBufName}.variables.json`;
   let variables = "";
   if (await denops.call("bufexists", variableBufName)) {
     await openVariableBuffer(denops, variableBufName);
