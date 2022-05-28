@@ -1,7 +1,7 @@
 # denops-graphql.vim
 GraphQL client for Vim/Neovim.
 
-![](https://i.gyazo.com/154b64ffef319511d951cc624e0cb7db.png)
+![](https://i.gyazo.com/e7adb67391d9892266053cd3686d64ea.gif)
 
 ## Requirements
 - [denops.vim](https://github.com/vim-denops/denops.vim)
