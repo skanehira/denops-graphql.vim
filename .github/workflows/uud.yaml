@@ -23,7 +23,12 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: ../output.txt
+      - name: Diff check
+        id: diff
+        run: |
+          echo "::set-output name=diff::$(git diff --name-only | grep ts)"
       - name: Commit changes
+        if: ${{ steps.diff.outputs.content != '' }}
         run: |
           git config user.name '${{ github.actor }}'
           git config user.email '${{ github.actor }}@users.noreply.github.com'
@@ -36,6 +41,7 @@ jobs:
 
           EOM
       - uses: peter-evans/create-pull-request@v3
+        if: ${{ steps.diff.outputs.content != '' }}
         with:
           title: ":package: Update Deno dependencies"
           body: |
