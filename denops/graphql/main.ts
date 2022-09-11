@@ -16,8 +16,8 @@ export async function main(denops: Denops): Promise<void> {
   autocmd.group(denops, "denops_graphql", (helper) => {
     helper.remove("*");
     helper.define(
-      "BufEnter",
-      "*.graphql",
+      "FileType",
+      "graphql",
       "nnoremap <buffer> <silent> <Plug>(graphql-execute) :GraphQLExecute<CR>",
     );
   });
