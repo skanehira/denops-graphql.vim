@@ -1,4 +1,5 @@
-import { assertEquals, Denops, test } from "../deps.ts";
+import { assertEquals, test } from "../deps_test.ts";
+import { Denops } from "../deps.ts";
 import { ensureBuffer } from "./ensures.ts";
 
 test({

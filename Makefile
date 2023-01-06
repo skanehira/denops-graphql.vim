@@ -1,3 +1,7 @@
+DENOPS := $${DENOPS_TEST_DENOPS_PATH:-$$GHQ_ROOT/github.com/vim-denops/denops.vim}
+VIM := $${DENOPS_TEST_VIM:-$$(which vim)}
+NVIM := $${DENOPS_TEST_NVIM:-$$(which nvim)}
+
 .PHONY: init
 init:
 	@repo=$$(basename `git rev-parse --show-toplevel`) && repo=($${repo/-/ }) && repo=$${repo[1]/\.*/ } && mv denops/template denops/$${repo}
@@ -9,7 +13,10 @@ coverage: test-local
 
 .PHONY: test-local
 test-local:
-	@DENOPS_PATH=$$GHQ_ROOT/github.com/vim-denops/denops.vim DENOPS_TEST_NVIM=$$(which nvim) DENOPS_TEST_VIM=$$(which vim) deno test -A --unstable --coverage=cov
+	@DENOPS_TEST_DENOPS_PATH=$(DENOPS) \
+		DENOPS_TEST_NVIM=$(NVIM) \
+		DENOPS_TEST_VIM=$(VIM) \
+		deno test -A --unstable
 
 .PHONY: test
 test:

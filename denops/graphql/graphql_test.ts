@@ -1,4 +1,5 @@
-import { assertEquals, Denops, test } from "./deps.ts";
+import { assertEquals, test } from "./deps_test.ts";
+import { Denops } from "./deps.ts";
 import { edit, execute, setEndpoint } from "./graphql.ts";
 
 const testEndpoint =
@@ -41,7 +42,6 @@ query Query {
 
     assertEquals(JSON.parse(got), JSON.parse(want));
   },
-  timeout: 3000,
 });
 
 test({
@@ -88,5 +88,4 @@ query Query($limit: Int!) {
 
     assertEquals(JSON.parse(got), JSON.parse(want));
   },
-  timeout: 3000,
 });
