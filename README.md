@@ -19,6 +19,7 @@ GraphQL client for Vim/Neovim.
 
 - `:GraphQLSetEndpoint`
   Set graphql endpoint.
+  Also you can add the comment to set endpoint.
 
 If you want see more info, please refer help.
 

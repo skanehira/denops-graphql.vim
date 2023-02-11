@@ -40,24 +40,45 @@ export async function edit(denops: Denops): Promise<void> {
   await openRespBuffer(denops, `${fname}.output.json`);
 }
 
+export function getEndpoint(
+  query: string[],
+  bufName: string,
+): string {
+  // if first line is comment and its has 'endpoint: ' prefix, then use endpoint
+  const comment = query.at(0);
+  if (comment && comment.includes("# endpoint: ")) {
+    const matched = comment.match(/http.*:\/\/.*/);
+    if (matched) {
+      return matched[0];
+    }
+  }
+
+  const endpoint = endpoints[bufName];
+  if (endpoint) {
+    return endpoint;
+  }
+
+  throw new Error(
+    "not found endpoint, please set endpoint by :GraphQLSetEndpoint",
+  );
+}
+
 export async function execute(denops: Denops): Promise<void> {
   if (await denops.eval("&ft") !== "graphql") {
     throw new Error(`file type is not 'graphql'`);
   }
   const queryBufName = await denops.call("bufname") as string;
-  const endpoint = endpoints[queryBufName];
-  if (!endpoint) {
-    throw new Error(
-      "not found endpoint, please set endpoint by :GraphQLSetEndpoint",
-    );
-  }
+  const query = await denops.call(
+    "getbufline",
+    queryBufName,
+    1,
+    "$",
+  ) as string[];
+  const endpoint = getEndpoint(query, queryBufName);
+  console.log(endpoint);
 
   const respBufName = `${queryBufName}.output.json`;
   await openRespBuffer(denops, respBufName);
-
-  const query =
-    (await denops.call("getbufline", queryBufName, 1, "$") as string[])
-      .join("\n");
 
   const variableBufName = `${queryBufName}.variables.json`;
   let variables = "";
@@ -90,7 +111,7 @@ export async function execute(denops: Denops): Promise<void> {
     method: "POST",
     headers: headers,
     body: JSON.stringify({
-      query: query,
+      query: query.join("\n"),
       variables: variables ? JSON.parse(variables) : null,
     }),
   });
@@ -115,6 +136,13 @@ export async function setEndpoint(denops: Denops, arg: unknown): Promise<void> {
   }
   const bufname = await denops.call("bufname") as string;
   endpoints[bufname] = arg as string;
+}
+
+// for test
+export function clearEndpoint() {
+  for (const k of Object.keys(endpoints)) {
+    delete endpoints[k];
+  }
 }
 
 export async function editHttpHeader(

@@ -88,11 +88,26 @@ COMMANDS					*graphql-commands*
 
 :GraphQLSetEndpoint {endpoint}			*:GraphQLSetEndpoint*
   Set graphql endpoint.
-  You have to set endpoint before execute query.
+  You should set endpoint before execute query.
 
   The endpoint will be relate the current buffer name.
   So if you change the file name or open the other file,
   you have to set endpoint again.
+
+  Also you can add the endpoint with comment.
+  In that case, please add `# endpoint: <your endpoint>` at first line.
+>
+  # endpoint: https://api.github.com/graphql
+  query {
+    viewer {
+      publicKeys(first: 5) {
+        nodes {
+          key
+        }
+      }
+    }
+  }
+>
 
 ------------------------------------------------------------------------------
 BUFFER							*graphql-buffers*
