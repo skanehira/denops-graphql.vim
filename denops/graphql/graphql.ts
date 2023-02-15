@@ -75,7 +75,6 @@ export async function execute(denops: Denops): Promise<void> {
     "$",
   ) as string[];
   const endpoint = getEndpoint(query, queryBufName);
-  console.log(endpoint);
 
   const respBufName = `${queryBufName}.output.json`;
   await openRespBuffer(denops, respBufName);
